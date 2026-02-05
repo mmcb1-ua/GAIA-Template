@@ -20,13 +20,23 @@ import os
 # To support both, we check env.
 TEST_DATABASE_URL = os.getenv("TEST_DATABASE_URL", "postgresql+asyncpg://postgres:postgres@localhost:5455/gaia_db")
 
-@pytest_asyncio.fixture(scope="session")
+# Dummy User Model for FK resolution
+from sqlalchemy import Column, String
+from sqlalchemy.dialects.postgresql import UUID
+import uuid
+
+class User(Base):
+    __tablename__ = "users"
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    email = Column(String, unique=True, nullable=False)
+    role = Column(String, default="MEMBER")
+
+@pytest_asyncio.fixture()
 async def engine():
     engine = create_async_engine(TEST_DATABASE_URL, echo=False, future=True)
     
     # Create tables
     async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.drop_all)
         await conn.run_sync(Base.metadata.create_all)
         
     yield engine
@@ -50,6 +60,13 @@ async def db_session(engine) -> AsyncGenerator[AsyncSession, None]:
         await session.rollback() # Ensure rollback after each test
 
 @pytest_asyncio.fixture()
-async def client() -> AsyncGenerator[AsyncClient, None]:
+async def client(db_session) -> AsyncGenerator[AsyncClient, None]:
+    from app.infrastructure.db.session import get_db
+    
+    async def _override_get_db():
+        yield db_session
+        
+    app.dependency_overrides[get_db] = _override_get_db
     async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as c:
         yield c
+    app.dependency_overrides.pop(get_db, None)

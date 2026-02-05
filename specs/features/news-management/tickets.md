@@ -23,7 +23,7 @@
    - **Dependencies**: None.
    - **Deliverables**: Alembic transaction, Updated Models.
 
-2. - [ ] **NEWS-ADMIN-001-BE-T02 — Create Draft Endpoint**
+2. - [x] **NEWS-ADMIN-001-BE-T02 — Create Draft Endpoint** (`2026-02-05`)
    - **Type**: BE
    - **Description**: Implement `POST /api/v1/news_articles` to create a news entry.
      - Default status: `DRAFT`.
