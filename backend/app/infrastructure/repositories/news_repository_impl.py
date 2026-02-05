@@ -5,6 +5,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.domain.repositories.news_repository import NewsRepository
 from app.infrastructure.models.news import News
 from app.domain.enums import NewsStatus, NewsScope
+from sqlalchemy.orm import joinedload
 
 class NewsRepositoryImpl(NewsRepository):
     def __init__(self, session: AsyncSession):
@@ -16,8 +17,13 @@ class NewsRepositoryImpl(NewsRepository):
         await self.session.refresh(news)
         return news
 
+
+
     async def get_by_id(self, id: UUID) -> Optional[News]:
-        return await self.session.get(News, id)
+        # [Feature: News Management] [Story: NEWS-VIEW-002] [Ticket: NEWS-VIEW-002-DB-T01]
+        stmt = select(News).options(joinedload(News.author)).where(News.id == id)
+        result = await self.session.execute(stmt)
+        return result.scalar_one_or_none()
 
     async def update(self, news: News) -> News:
         await self.session.flush()

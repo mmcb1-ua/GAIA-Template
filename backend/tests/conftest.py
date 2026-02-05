@@ -26,17 +26,8 @@ else:
     # From Host
     TEST_DATABASE_URL = "postgresql+asyncpg://postgres:postgres@localhost:5455/gaia_db"
 
-# Dummy User Model for FK resolution
-from sqlalchemy import Column, String, Boolean
-from sqlalchemy.dialects.postgresql import UUID
-import uuid
-
-class User(Base):
-    __tablename__ = "users"
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    email = Column(String, unique=True, nullable=False)
-    role = Column(String, default="MEMBER")
-    is_admin = Column(Boolean, default=False)
+# Real User Model for FK resolution
+from app.infrastructure.models.user import User
 
 @pytest.fixture
 def admin_token_headers():

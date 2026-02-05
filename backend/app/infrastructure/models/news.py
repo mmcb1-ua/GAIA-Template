@@ -35,5 +35,5 @@ class News(Base):
     is_deleted = Column(Boolean, default=False, nullable=False, index=True)
 
     # Relationships (Assumed User model exists, if not this might fail on import if strict)
-    # For now, we define the foreign key. We can add relationship property if User is available.
-    # author = relationship("User", back_populates="news") 
+    # Relationships
+    author = relationship("User", backref="news_articles")

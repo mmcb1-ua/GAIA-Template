@@ -163,7 +163,7 @@
 
 #### Tickets for NEWS-VIEW-002
 
-13. - [ ] **NEWS-VIEW-002-DB-T01 — Detail Fetch Optimization**
+13. - [x] **NEWS-VIEW-002-DB-T01 — Detail Fetch Optimization** (`2026-02-06`)
     - **Type**: DB
     - **Description**: Ensure simple ID lookup is optimal (Primary Key).
       - Verify no N+1 queries if author info is fetched.
