@@ -124,7 +124,7 @@
 
 #### Tickets for NEWS-VIEW-001
 
-10. - [ ] **NEWS-VIEW-001-DB-T01 — List Query Optimization**
+10. - [x] (2026-02-05) **NEWS-VIEW-001-DB-T01 — List Query Optimization**
     - **Type**: DB
     - **Description**: Optimize "Feed" queries.
       - Composite Index: `(is_deleted, status, published_at DESC)`.
