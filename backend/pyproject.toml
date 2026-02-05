@@ -1,0 +1,13 @@
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-v --strict-markers --cov=app --cov-report=term-missing"
+asyncio_mode = "auto"
+testpaths = ["tests"]
+markers = [
+    "unit: Fast tests, no I/O",
+    "integration: Requires Docker/DB",
+    "contract: OpenAPI schema validation",
+]
+filterwarnings = [
+    "ignore::DeprecationWarning",
+]
