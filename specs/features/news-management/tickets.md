@@ -51,7 +51,7 @@
 
 #### Tickets for NEWS-ADMIN-002
 
-4. - [ ] **NEWS-ADMIN-002-DB-T01 — Indexing for Publishing Workflow**
+4. - [x] **NEWS-ADMIN-002-DB-T01 — Indexing for Publishing Workflow** (`2026-02-05`)
    - **Type**: DB
    - **Description**: Ensure efficient querying for published/draft items.
      - Add Index on `(status, scope)`.
