@@ -1,10 +1,12 @@
 // [Feature: News Management] [Story: NEWS-VIEW-001] [Ticket: NEWS-VIEW-001-FE-T03]
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { NewsCard } from '../components/NewsCard';
 import { getNewsFeed } from '../api/news';
 import type { NewsArticle } from '../types';
 
 export function NewsFeedPage() {
+    const navigate = useNavigate();
     const [articles, setArticles] = useState<NewsArticle[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -85,8 +87,8 @@ export function NewsFeedPage() {
                         key={article.id}
                         article={article}
                         onClick={() => {
-                            // Future: navigate to detail page
-                            console.log('Navigate to article:', article.id);
+                            // Navigate to detail page
+                            navigate(`/news/${article.id}`);
                         }}
                     />
                 ))}

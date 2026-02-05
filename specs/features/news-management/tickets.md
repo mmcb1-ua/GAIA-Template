@@ -182,7 +182,7 @@
     - **Dependencies**: DB-T01.
     - **Deliverables**: Endpoint, Security Tests (Negative testing).
 
-15. - [ ] **NEWS-VIEW-002-FE-T03 — Article Detail Page**
+15. - [x] **NEWS-VIEW-002-FE-T03 — Article Detail Page** (`2026-02-06`)
     - **Type**: FE
     - **Description**: Full page view of the article.
       - Render Cover Image (Hero).

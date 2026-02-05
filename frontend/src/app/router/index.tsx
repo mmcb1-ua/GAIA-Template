@@ -2,6 +2,8 @@ import { createBrowserRouter, Navigate } from 'react-router-dom';
 import { CreateNewsPage } from '../../features/news-management/pages/CreateNewsPage';
 import { EditNewsPage } from '../../features/news-management/pages/EditNewsPage';
 import { NewsAdminPage } from '../../features/news-management/pages/NewsAdminPage';
+import { NewsFeedPage } from '../../features/news-management/pages/NewsFeedPage';
+import { NewsDetailPage } from '../../features/news-management/pages/NewsDetailPage';
 
 export const router = createBrowserRouter([
     {
@@ -23,7 +25,19 @@ export const router = createBrowserRouter([
                 path: 'edit/:id',
                 element: <EditNewsPage />,
             },
-            // Other routes will be added in future tickets
+        ],
+    },
+    {
+        path: '/news',
+        children: [
+            {
+                index: true,
+                element: <NewsFeedPage />,
+            },
+            {
+                path: ':id',
+                element: <NewsDetailPage />,
+            },
         ],
     },
 ]);
