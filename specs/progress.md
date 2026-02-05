@@ -86,3 +86,11 @@
   - `frontend/src/features/news-management/pages/NewsAdminPage.tsx`
   - `frontend/src/features/news-management/components/NewsForm.tsx`
 - **Notes**: Implemented the Edit News page and integrated Delete functionality with confirmation modal. Reused NewsForm and added onCancel support. 16/16 component tests passing in news-management.
+
+- **Date**: 2026-02-05
+- **Milestone**: Executed plan NEWS-VIEW-001-DB-T01 (List Query Optimization) (workflow: /execute-plan)
+- **Artifacts**:
+  - `backend/alembic/versions/04732bf52436_add_news_feed_indices.py`
+  - `backend/app/infrastructure/models/news.py`
+  - `backend/tests/integration/test_news_feed_indices.py`
+- **Notes**: Added composite index `ix_news_feed_composite` on `(is_deleted, status, published_at DESC)` to optimize news feed queries. Verified with integration test.
