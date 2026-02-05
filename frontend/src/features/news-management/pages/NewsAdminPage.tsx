@@ -1,16 +1,18 @@
 // [Feature: News Management] [Story: NEWS-VIEW-001] [Ticket: NEWS-ADMIN-002-FE-T03]
 import React, { useEffect, useState } from 'react';
-import { getNewsArticles } from '../api/news';
+import { getNewsArticles, deleteNewsArticle } from '../api/news';
 import type { NewsArticle } from '../types';
 import { NewsStatusBadge } from '../components/NewsStatusBadge';
 import { PublishButton } from '../components/PublishButton';
-import { Plus, Newspaper } from 'lucide-react';
+import { Plus, Newspaper, Edit2, Trash2, AlertCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export const NewsAdminPage: React.FC = () => {
     const [articles, setArticles] = useState<NewsArticle[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const [isDeleting, setIsDeleting] = useState<string | null>(null); // ID of article being deleted
+    const [deleteError, setDeleteError] = useState<string | null>(null);
 
     const fetchArticles = async () => {
         setIsLoading(true);
@@ -31,6 +33,18 @@ export const NewsAdminPage: React.FC = () => {
 
     const handlePublishSuccess = (updatedArticle: NewsArticle) => {
         setArticles(prev => prev.map(a => a.id === updatedArticle.id ? updatedArticle : a));
+    };
+
+    const handleDelete = async (id: string) => {
+        setDeleteError(null);
+        try {
+            await deleteNewsArticle(id);
+            setArticles(prev => prev.filter(a => a.id !== id));
+            setIsDeleting(null);
+        } catch (err) {
+            console.error('Failed to delete news:', err);
+            setDeleteError('No se pudo eliminar la noticia. Por favor, intenta de nuevo.');
+        }
     };
 
     if (isLoading) {
@@ -118,13 +132,67 @@ export const NewsAdminPage: React.FC = () => {
                                                         className="scale-90"
                                                     />
                                                 )}
-                                                {/* Edit link could go here */}
+                                                <Link
+                                                    to={`/admin/news/edit/${article.id}`}
+                                                    className="p-1.5 text-brand-gray hover:text-brand-navy hover:bg-black/5 rounded transition-colors"
+                                                    title="Editar"
+                                                >
+                                                    <Edit2 className="w-4 h-4" />
+                                                </Link>
+                                                <button
+                                                    onClick={() => setIsDeleting(article.id)}
+                                                    className="p-1.5 text-brand-gray hover:text-destructive hover:bg-destructive/10 rounded transition-colors"
+                                                    title="Eliminar"
+                                                >
+                                                    <Trash2 className="w-4 h-4" />
+                                                </button>
                                             </div>
                                         </td>
                                     </tr>
                                 ))}
                             </tbody>
                         </table>
+                    </div>
+                </div>
+            )}
+
+            {/* Delete Confirmation Modal */}
+            {isDeleting && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+                    <div className="bg-white rounded-xl shadow-xl max-w-md w-full p-6 animate-in fade-in zoom-in duration-200">
+                        <div className="flex items-center gap-3 text-destructive mb-4">
+                            <AlertCircle className="w-6 h-6" />
+                            <h3 className="text-xl font-bold">¿Eliminar noticia?</h3>
+                        </div>
+
+                        <p className="text-brand-gray mb-6">
+                            Esta acción marcará la noticia como eliminada y ya no será visible para los usuarios.
+                        </p>
+
+                        {deleteError && (
+                            <div className="mb-4 p-3 bg-red-50 border border-red-100 text-red-600 text-sm rounded flex items-center gap-2">
+                                <AlertCircle className="w-4 h-4 flex-shrink-0" />
+                                {deleteError}
+                            </div>
+                        )}
+
+                        <div className="flex items-center justify-end gap-3">
+                            <button
+                                onClick={() => {
+                                    setIsDeleting(null);
+                                    setDeleteError(null);
+                                }}
+                                className="px-4 py-2 text-brand-navy hover:bg-black/5 rounded-md transition-colors"
+                            >
+                                Cancelar
+                            </button>
+                            <button
+                                onClick={() => handleDelete(isDeleting)}
+                                className="px-4 py-2 bg-destructive text-white rounded-md hover:bg-destructive/90 transition-colors font-medium"
+                            >
+                                Eliminar permanentemente
+                            </button>
+                        </div>
                     </div>
                 </div>
             )}

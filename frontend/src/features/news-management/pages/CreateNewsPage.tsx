@@ -38,7 +38,11 @@ export const CreateNewsPage: React.FC = () => {
                 </div>
             )}
 
-            <NewsForm onSubmit={handleCreate} isLoading={isSubmitting} />
+            <NewsForm
+                onSubmit={handleCreate}
+                isLoading={isSubmitting}
+                onCancel={() => navigate('/admin/news')}
+            />
         </div>
     );
 };

@@ -106,9 +106,10 @@
    - **Dependencies**: DB-T01.
    - **Deliverables**: Endpoints, Pytest coverage.
 
-9. - [ ] **NEWS-ADMIN-003-FE-T03 — Edit/Delete UI**
+9. - [x] (2026-02-05) **NEWS-ADMIN-003-FE-T03 — Edit/Delete UI**
    - **Type**: FE
    - **Description**:
+     - Integrated with `EditNewsPage` and logic in `NewsAdminPage`.
      - Edit: Pre-fill Editor form with existing data (fetch by ID).
      - Delete: Delete button with critical confirmation (Red warning).
    - **Scope**: Form reuse, Management List Actions.

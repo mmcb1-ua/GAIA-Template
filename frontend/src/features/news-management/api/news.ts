@@ -19,3 +19,20 @@ export const getNewsArticles = async (): Promise<NewsArticle[]> => {
     const response = await http.get<NewsArticle[]>('/news_articles');
     return response.data;
 };
+
+export const getNewsArticle = async (id: string): Promise<NewsArticle> => {
+    // [Feature: News Management] [Story: NEWS-ADMIN-003] [Ticket: NEWS-ADMIN-003-FE-T03]
+    const response = await http.get<NewsArticle>(`/news_articles/${id}`);
+    return response.data;
+};
+
+export const updateNewsArticle = async (id: string, data: Partial<NewsCreate>): Promise<NewsArticle> => {
+    // [Feature: News Management] [Story: NEWS-ADMIN-003] [Ticket: NEWS-ADMIN-003-FE-T03]
+    const response = await http.put<NewsArticle>(`/news_articles/${id}`, data);
+    return response.data;
+};
+
+export const deleteNewsArticle = async (id: string): Promise<void> => {
+    // [Feature: News Management] [Story: NEWS-ADMIN-003] [Ticket: NEWS-ADMIN-003-FE-T03]
+    await http.delete(`/news_articles/${id}`);
+};

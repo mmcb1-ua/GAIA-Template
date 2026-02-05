@@ -78,3 +78,11 @@
   - backend/app/presentation/api/news.py
   - backend/tests/integration/test_news_edit_delete.py
 - **Notes**: Implemented Edit (PUT) and Delete (DELETE) endpoints for news articles. Includes HTML sanitization for updates and mandatory RBAC. Verified with 5/5 passing integration tests.
+- **Date**: 2026-02-05
+- **Milestone**: Executed plan NEWS-ADMIN-003-FE-T03 (Implementing News Edit/Delete UI) (workflow: /execute-plan)
+- **Artifacts**:
+  - `frontend/src/features/news-management/api/news.ts`
+  - `frontend/src/features/news-management/pages/EditNewsPage.tsx`
+  - `frontend/src/features/news-management/pages/NewsAdminPage.tsx`
+  - `frontend/src/features/news-management/components/NewsForm.tsx`
+- **Notes**: Implemented the Edit News page and integrated Delete functionality with confirmation modal. Reused NewsForm and added onCancel support. 16/16 component tests passing in news-management.
