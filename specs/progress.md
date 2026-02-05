@@ -62,3 +62,19 @@
   - frontend/src/features/news-management/pages/NewsAdminPage.tsx
   - frontend/src/app/router/index.tsx
 - **Notes**: Implemented Publish action with confirmation modal and status badges. Integrated into a newly created NewsAdminPage. Verified with Vitest (5/5 tests passed). Brand alignment with Green/Navy/Gray tokens verified.
+
+- **Date**: 2026-02-05
+- **Milestone**: Executed plan NEWS-ADMIN-003-DB-T01 (workflow: /execute-plan)
+- **Artifacts**:
+  - backend/app/domain/repositories/news_repository.py
+  - backend/app/infrastructure/repositories/news_repository_impl.py
+  - backend/tests/integration/test_news_soft_delete_db.py
+- **Notes**: Verified soft-delete infrastructure. Updated repository with `list` (filtering) and `delete` (soft) methods.
+- **Date**: 2026-02-05
+- **Milestone**: Executed plan NEWS-ADMIN-003-BE-T02 (workflow: /execute-plan)
+- **Artifacts**:
+  - backend/app/application/use_cases/update_news.py
+  - backend/app/application/use_cases/delete_news.py
+  - backend/app/presentation/api/news.py
+  - backend/tests/integration/test_news_edit_delete.py
+- **Notes**: Implemented Edit (PUT) and Delete (DELETE) endpoints for news articles. Includes HTML sanitization for updates and mandatory RBAC. Verified with 5/5 passing integration tests.

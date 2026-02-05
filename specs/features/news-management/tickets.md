@@ -96,7 +96,7 @@
    - **Dependencies**: NEWS-ADMIN-001-DB-T01.
    - **Deliverables**: DB verification test.
 
-8. - [ ] **NEWS-ADMIN-003-BE-T02 — Edit and Delete Endpoints**
+8. - [x] **NEWS-ADMIN-003-BE-T02 — Edit and Delete Endpoints** (`2026-02-05`)
    - **Type**: BE
    - **Description**:
      - `PUT /api/v1/news_articles/{id}`: Full update of validation fields.

@@ -29,3 +29,10 @@ class NewsResponse(BaseModel):
 
 class NewsStatusUpdate(BaseModel):
     status: NewsStatus
+
+class NewsUpdate(BaseModel):
+    title: Optional[str] = Field(None, min_length=1, max_length=255)
+    summary: Optional[str] = None
+    content: Optional[str] = None
+    cover_url: Optional[str] = None
+    scope: Optional[NewsScope] = None
