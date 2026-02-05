@@ -132,7 +132,7 @@
     - **Dependencies**: Previous DB tickets.
     - **Deliverables**: Migration/Index.
 
-11. - [ ] **NEWS-VIEW-001-BE-T02 — Public & Member Feed Endpoint**
+11. - [x] (2026-02-05) **NEWS-VIEW-001-BE-T02 — Public & Member Feed Endpoint**
     - **Type**: BE
     - **Description**: `GET /api/v1/news_articles`.
       - Filters: `status=PUBLISHED` (forced).

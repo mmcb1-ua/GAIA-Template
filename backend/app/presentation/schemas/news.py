@@ -36,3 +36,11 @@ class NewsUpdate(BaseModel):
     content: Optional[str] = None
     cover_url: Optional[str] = None
     scope: Optional[NewsScope] = None
+
+# [Feature: News Management] [Story: NEWS-VIEW-001] [Ticket: NEWS-VIEW-001-BE-T02]
+class NewsFeedResponse(BaseModel):
+    """Response schema for the news feed endpoint."""
+    items: list[NewsResponse]
+    total: int
+    limit: int
+    offset: int

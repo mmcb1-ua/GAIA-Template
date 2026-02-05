@@ -94,3 +94,13 @@
   - `backend/app/infrastructure/models/news.py`
   - `backend/tests/integration/test_news_feed_indices.py`
 - **Notes**: Added composite index `ix_news_feed_composite` on `(is_deleted, status, published_at DESC)` to optimize news feed queries. Verified with integration test.
+
+- **Date**: 2026-02-05
+- **Milestone**: Executed plan NEWS-VIEW-001-BE-T02 (Public & Member Feed Endpoint) (workflow: /execute-plan)
+- **Artifacts**:
+  - `backend/app/infrastructure/repositories/news_repository_impl.py`
+  - `backend/app/application/use_cases/list_news_feed.py`
+  - `backend/app/presentation/api/news.py`
+  - `backend/app/presentation/schemas/news.py`
+  - `backend/tests/integration/test_news_feed.py`
+- **Notes**: Implemented `GET /api/v1/news_articles` with role-based filtering (public users see only GENERAL news, members see all published news) and pagination. Verified with 4/4 passing integration tests.
