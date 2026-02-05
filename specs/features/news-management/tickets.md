@@ -88,7 +88,7 @@
 
 #### Tickets for NEWS-ADMIN-003
 
-7. - [ ] **NEWS-ADMIN-003-DB-T01 — Soft Delete Support**
+7. - [x] **NEWS-ADMIN-003-DB-T01 — Soft Delete Support** (`2026-02-05`)
    - **Type**: DB
    - **Description**: Ensure `is_deleted` column infrastructure is sound.
      - Verify queries filter `is_deleted=False` by default.

@@ -18,3 +18,13 @@ class NewsRepository(ABC):
     async def update(self, news: News) -> News:
         """Update an existing news article."""
         pass
+
+    @abstractmethod
+    async def list(self, include_deleted: bool = False) -> list[News]:
+        """List news articles, optionally including deleted ones."""
+        pass
+
+    @abstractmethod
+    async def delete(self, news: News) -> News:
+        """Soft delete a news article."""
+        pass
