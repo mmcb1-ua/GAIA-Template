@@ -40,3 +40,10 @@ graph LR
 1. **Presentation**: `POST /api/v1/news_articles` receives `NewsCreate` schema.
 2. **Application**: `CreateNews` use case sanitizes HTML and invokes repository.
 3. **Infrastructure**: `NewsRepositoryImpl` persists the `News` entity to PostgreSQL.
+
+## Data Flow: Publish News (Admin)
+1. **Frontend**: `PublishButton` in `NewsAdminPage` or `NewsForm` triggers `PATCH /api/v1/news_articles/{id}/status`.
+2. **Presentation**: FastAPI controller receives request and invokes `PublishNews` use case.
+3. **Application**: Use case updates status to `PUBLISHED` and sets `published_at=now()`.
+4. **Infrastructure**: Changes persisted via `NewsRepositoryImpl`.
+5. **Frontend**: UI updates locally (optimistic or reactive) and shows success toast.

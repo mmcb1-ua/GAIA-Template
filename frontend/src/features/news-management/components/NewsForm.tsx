@@ -6,14 +6,27 @@ import { newsSchema, type NewsFormData } from '../schema';
 import { cn } from '../../../lib/utils';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import { NewsStatusBadge } from './NewsStatusBadge';
+import { PublishButton } from './PublishButton';
+import type { NewsStatus } from '../types';
 
 interface NewsFormProps {
     onSubmit: (data: NewsFormData) => void;
     initialData?: Partial<NewsFormData>;
     isLoading?: boolean;
+    status?: NewsStatus;
+    newsId?: string;
+    onPublishSuccess?: (updatedArticle: any) => void;
 }
 
-export const NewsForm: React.FC<NewsFormProps> = ({ onSubmit, initialData, isLoading }) => {
+export const NewsForm: React.FC<NewsFormProps> = ({
+    onSubmit,
+    initialData,
+    isLoading,
+    status,
+    newsId,
+    onPublishSuccess
+}) => {
     const {
         register,
         handleSubmit,
@@ -39,6 +52,15 @@ export const NewsForm: React.FC<NewsFormProps> = ({ onSubmit, initialData, isLoa
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 max-w-4xl mx-auto p-6 bg-brand-warm-white rounded-lg border border-brand-gray/20 shadow-sm">
+            {status && (
+                <div className="flex items-center justify-between pb-4 border-b border-brand-gray/10">
+                    <div className="flex items-center gap-3">
+                        <span className="text-sm font-medium text-brand-gray">Estado:</span>
+                        <NewsStatusBadge status={status} />
+                    </div>
+                </div>
+            )}
+
             <div className="space-y-2">
                 <label htmlFor="title" className="block text-sm font-medium text-brand-navy">
                     Título <span className="text-destructive">*</span>
@@ -132,21 +154,32 @@ export const NewsForm: React.FC<NewsFormProps> = ({ onSubmit, initialData, isLoa
                 </div>
             </div>
 
-            <div className="pt-4 flex justify-end gap-4">
-                <button
-                    type="button"
-                    className="px-6 py-2 border border-brand-gray/30 text-brand-navy rounded-md hover:bg-black/5 transition-colors"
-                    disabled={isLoading}
-                >
-                    Cancelar
-                </button>
-                <button
-                    type="submit"
-                    disabled={isLoading}
-                    className="px-6 py-2 bg-brand-terracotta-aa text-white rounded-md hover:bg-brand-terracotta transition-colors flex items-center gap-2"
-                >
-                    {isLoading ? 'Guardando...' : 'Guardar Borrador'}
-                </button>
+            <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-brand-gray/10">
+                <div className="flex items-center gap-4">
+                    {newsId && status === 'DRAFT' && onPublishSuccess && (
+                        <PublishButton
+                            newsId={newsId}
+                            onSuccess={onPublishSuccess}
+                        />
+                    )}
+                </div>
+
+                <div className="flex items-center gap-4 w-full sm:w-auto">
+                    <button
+                        type="button"
+                        className="flex-1 sm:flex-initial px-6 py-2 border border-brand-gray/30 text-brand-navy rounded-md hover:bg-black/5 transition-colors"
+                        disabled={isLoading}
+                    >
+                        Cancelar
+                    </button>
+                    <button
+                        type="submit"
+                        disabled={isLoading}
+                        className="flex-1 sm:flex-initial px-6 py-2 bg-brand-terracotta-aa text-white rounded-md hover:bg-brand-terracotta transition-colors flex items-center justify-center gap-2"
+                    >
+                        {isLoading ? 'Guardando...' : status === 'DRAFT' ? 'Actualizar Borrador' : 'Guardar Cambios'}
+                    </button>
+                </div>
             </div>
         </form>
     );

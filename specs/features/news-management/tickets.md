@@ -71,7 +71,7 @@
    - **Dependencies**: DB-T01.
    - **Deliverables**: Endpoint, Tests (State transition checks).
 
-6. - [ ] **NEWS-ADMIN-002-FE-T03 — Publish Action & Status UI**
+6. - [x] **NEWS-ADMIN-002-FE-T03 — Publish Action & Status UI** (`2026-02-05`)
    - **Type**: FE
    - **Description**: Add "Publish" button in the Admin list or Editor.
      - Visual Feedback: Show status badges (DRAFT vs PUBLISHED).
