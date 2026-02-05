@@ -34,7 +34,7 @@
    - **Dependencies**: T01 (DB).
    - **Deliverables**: Python Code, Pytest (Happy path + XSS prevention).
 
-3. - [ ] **NEWS-ADMIN-001-FE-T03 — News Editor Form (Create)**
+3. - [x] **NEWS-ADMIN-001-FE-T03 — News Editor Form (Create)** (`2026-02-05`)
    - **Type**: FE
    - **Description**: Admin UI to create a new article.
      - Fields: Title, Summary, Scope (Dropdown), Content (Rich Text Editor - Tiptap/Quill), Cover Image URL.

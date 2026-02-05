@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Shadcn/UI custom variables based on brand */
+    --background: 40 60% 99%; /* FEFDFB approx */
+    --foreground: 255.6 23.9% 22.2%; /* 322B46 */
+    
+    --primary: 24.3 61.8% 43.1%; /* B2612A */
+    --primary-foreground: 40 60% 99%; 
+
+    --secondary: 82.6 46.0% 51.4%; /* 91BC4A */
+    --secondary-foreground: 255.6 23.9% 22.2%;
+
+    --muted: 23.3 39.7% 73.3%;
+    --muted-foreground: 288 2.2% 44.5%;
+
+    --accent: 24.3 61.8% 43.1%;
+    --accent-foreground: 40 60% 99%;
+
+    --border: 288 2.2% 44.5%;
+    --input: 288 2.2% 44.5%;
+    --ring: 24.3 61.8% 43.1%;
+    
+    --radius: 1rem;
+  }
+
+  .dark {
+    --background: 0 0% 7.1%;
+    --foreground: 30 25% 90.6%;
+    
+    --primary: 24.3 61.8% 43.1%;
+    --primary-foreground: 30 25% 90.6%;
+    /* ... rest of dark mode if needed ... */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+}
