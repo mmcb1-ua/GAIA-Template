@@ -3,6 +3,9 @@ import pytest
 from httpx import AsyncClient
 from uuid import uuid4
 from datetime import datetime
+from app.infrastructure.models.news import News
+from app.infrastructure.models.user import User
+from app.domain.enums import NewsStatus, NewsScope
 from app.main import app
 from app.presentation.api.deps import get_current_user
 

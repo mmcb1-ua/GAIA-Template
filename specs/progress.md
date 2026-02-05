@@ -123,3 +123,11 @@
   - `backend/app/infrastructure/models/news.py`
   - `backend/tests/integration/test_news_detail_perf.py`
 - **Notes**: Optimized `get_by_id` to use `joinedload(News.author)` to avoid N+1 queries. Fixed User model conflict in `conftest.py`. Verified with integration test proving eager loading.
+
+- **Date**: 2026-02-06
+- **Milestone**: Executed plan NEWS-VIEW-002-BE-T02 (Get Detail Endpoint with Security) (workflow: /execute-plan)
+- **Artifacts**:
+  - `backend/app/application/use_cases/get_news_detail.py`
+  - `backend/app/presentation/api/news.py`
+  - `backend/tests/integration/test_news_detail_security.py`
+- **Notes**: Implemented `GET /api/v1/news_articles/{id}` with strict RBAC for `INTERNAL` scope. Verified with security integration tests ensuring correct access control.
