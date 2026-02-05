@@ -8,7 +8,7 @@ from app.application.use_cases.update_news import UpdateNews
 from app.application.use_cases.delete_news import DeleteNews
 from app.application.use_cases.list_news_feed import ListNewsFeed
 from app.infrastructure.repositories.news_repository_impl import NewsRepositoryImpl
-from app.presentation.api.deps import get_current_admin
+from app.presentation.api.deps import get_current_admin, get_current_user
 from typing import Optional
 from uuid import UUID
 from app.presentation.schemas.news import NewsStatus
@@ -107,18 +107,52 @@ async def delete_news_article(
         
     return None
 
+
+@router.get("/news_articles/{id}", response_model=NewsResponse)
+async def get_news_detail(
+    id: UUID,
+    db: AsyncSession = Depends(get_db),
+    # Optional auth to support both public and member access
+    current_user: Optional[dict] = Depends(get_current_user)
+):
+    """
+    Get a news article by ID.
+    
+    - If article is GENERAL: Accessible to everyone (Public).
+    - If article is INTERNAL: Accessible only to authenticated MEMBERS/ADMINS.
+    - If article is DRAFT/DELETED: Not found (404) unless Admin (Admin preview logic not yet enforced, assumed hidden).
+    """
+    # [Feature: News Management] [Story: NEWS-VIEW-002] [Ticket: NEWS-VIEW-002-BE-T02]
+    
+    from app.application.use_cases.get_news_detail import GetNewsDetail
+    from fastapi import HTTPException
+    
+    repo = NewsRepositoryImpl(db)
+    use_case = GetNewsDetail(repo)
+    
+    try:
+        news = await use_case.execute(id, current_user)
+    except PermissionError:
+         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Access denied")
+         
+    if not news:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="News article not found")
+        
+    return news
+
 @router.get("/news_articles", response_model=NewsFeedResponse)
 async def get_news_feed(
     limit: int = 100,
     offset: int = 0,
     db: AsyncSession = Depends(get_db),
-    current_user: Optional[dict] = None
+    current_user: Optional[dict] = Depends(get_current_user)
 ):
     """
     Retrieve the news feed with role-based filtering.
     
     - Public users (unauthenticated): See only GENERAL news
     - Members/Admins (authenticated): See all published news (GENERAL + INTERNAL)
+    - Drafts are hidden.
     
     Pagination is supported via limit and offset query parameters.
     """

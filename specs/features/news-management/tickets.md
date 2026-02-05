@@ -171,7 +171,7 @@
     - **Dependencies**: None.
     - **Deliverables**: Query analysis (comment/test).
 
-14. - [ ] **NEWS-VIEW-002-BE-T02 — Get Detail Endpoint with Security**
+14. - [x] **NEWS-VIEW-002-BE-T02 — Get Detail Endpoint with Security** (`2026-02-06`)
     - **Type**: BE
     - **Description**: `GET /api/v1/news_articles/{id}`.
       - **CRITICAL SECURITY**:

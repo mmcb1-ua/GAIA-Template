@@ -115,3 +115,11 @@
   - `frontend/src/features/news-management/components/__tests__/NewsCard.test.tsx`
   - `frontend/src/features/news-management/pages/__tests__/NewsFeedPage.test.tsx`
 - **Notes**: Implemented public-facing News Feed with `NewsCard` component (brand-aligned styling: Warm White, TerracottaAA hover, Outfit typography, lazy-loaded images), `NewsFeedPage` with responsive grid layout, "Load More" pagination, and empty state. Verified with 11/11 passing component tests.
+
+- **Date**: 2026-02-06
+- **Milestone**: Executed plan NEWS-VIEW-002-DB-T01 (Detail Fetch Optimization) (workflow: /execute-plan)
+- **Artifacts**:
+  - `backend/app/infrastructure/repositories/news_repository_impl.py`
+  - `backend/app/infrastructure/models/news.py`
+  - `backend/tests/integration/test_news_detail_perf.py`
+- **Notes**: Optimized `get_by_id` to use `joinedload(News.author)` to avoid N+1 queries. Fixed User model conflict in `conftest.py`. Verified with integration test proving eager loading.
