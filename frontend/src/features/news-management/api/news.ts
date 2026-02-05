@@ -1,5 +1,5 @@
 import { http } from '../../../api/http';
-import type { NewsArticle, NewsCreate } from '../types';
+import type { NewsArticle, NewsCreate, NewsFeedResponse } from '../types';
 
 export const createNewsArticle = async (data: NewsCreate): Promise<NewsArticle> => {
     // [Feature: News Management] [Story: NEWS-ADMIN-001] [Ticket: NEWS-ADMIN-001-FE-T03]
@@ -14,9 +14,10 @@ export const publishNewsArticle = async (id: string): Promise<NewsArticle> => {
     });
     return response.data;
 };
-export const getNewsArticles = async (): Promise<NewsArticle[]> => {
-    // [Feature: News Management] [Story: NEWS-VIEW-001] [Ticket: NEWS-VIEW-001-BE-T02]
-    const response = await http.get<NewsArticle[]>('/news_articles');
+
+export const getNewsFeed = async (limit: number = 12, offset: number = 0): Promise<NewsFeedResponse> => {
+    // [Feature: News Management] [Story: NEWS-VIEW-001] [Ticket: NEWS-VIEW-001-FE-T03]
+    const response = await http.get<NewsFeedResponse>(`/news_articles?limit=${limit}&offset=${offset}`);
     return response.data;
 };
 

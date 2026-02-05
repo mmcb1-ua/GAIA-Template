@@ -144,7 +144,7 @@
     - **Dependencies**: DB-T01.
     - **Deliverables**: Endpoint, Tests (Role-based data leak checks).
 
-12. - [ ] **NEWS-VIEW-001-FE-T03 — News Feed UI**
+12. - [x] (2026-02-05) **NEWS-VIEW-001-FE-T03 — News Feed UI**
     - **Type**: FE
     - **Description**: Public-facing news list.
       - Component: `NewsCard` (Image, Title, Date, Summary).

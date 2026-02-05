@@ -22,5 +22,12 @@ export interface NewsCreate {
     summary?: string;
     content?: string;
     cover_url?: string;
-    scope: NewsScope;
+}
+
+// [Feature: News Management] [Story: NEWS-VIEW-001] [Ticket: NEWS-VIEW-001-FE-T03]
+export interface NewsFeedResponse {
+    items: NewsArticle[];
+    total: number;
+    limit: number;
+    offset: number;
 }
