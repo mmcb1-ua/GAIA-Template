@@ -39,3 +39,11 @@
   - frontend/tailwind.config.js
   - frontend/Dockerfile
 - **Notes**: Scaffolded frontend using Docker since Node was missing on host. Configured Tailwind v3 with GAIA brand tokens. Implemented News Editor Form with Zod validation and React Quill. Verified with Vitest and React Testing Library (3/3 tests passed).
+
+- **Date**: 2026-02-05
+- **Milestone**: Executed plan NEWS-ADMIN-002-DB-T01 (workflow: /execute-plan)
+- **Artifacts**:
+  - backend/alembic/versions/ceb5d5b41298_initial_schema.py
+  - backend/alembic/versions/9f77ac7da006_add_news_publish_indices.py
+  - backend/app/infrastructure/models/user.py
+- **Notes**: Initialized Alembic migrations and added composite index `(status, scope)` for optimized publishing queries. Verified in DB.
