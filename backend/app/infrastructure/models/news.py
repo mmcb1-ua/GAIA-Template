@@ -1,6 +1,6 @@
 import uuid
 from datetime import datetime
-from sqlalchemy import Column, String, Text, DateTime, Boolean, ForeignKey, Enum as SAEnum
+from sqlalchemy import Column, String, Text, DateTime, Boolean, ForeignKey, Index, Enum as SAEnum
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 from app.infrastructure.db.session import Base
@@ -8,6 +8,9 @@ from app.domain.enums import NewsStatus, NewsScope
 
 class News(Base):
     __tablename__ = "news"
+    __table_args__ = (
+        Index("ix_news_status_scope", "status", "scope"),
+    )
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     title = Column(String, nullable=False)

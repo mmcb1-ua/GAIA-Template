@@ -43,7 +43,14 @@
 - **Date**: 2026-02-05
 - **Milestone**: Executed plan NEWS-ADMIN-002-DB-T01 (workflow: /execute-plan)
 - **Artifacts**:
-  - backend/alembic/versions/ceb5d5b41298_initial_schema.py
-  - backend/alembic/versions/9f77ac7da006_add_news_publish_indices.py
-  - backend/app/infrastructure/models/user.py
-- **Notes**: Initialized Alembic migrations and added composite index `(status, scope)` for optimized publishing queries. Verified in DB.
+  - backend/app/infrastructure/models/news.py (Sync Index)
+  - backend/alembic/versions/53ca5d89b23c_initial_schema_with_indices.py (Consolidated)
+- **Notes**: Reset and consolidated migration history to include composite indices and User roles from the start.
+
+- **Date**: 2026-02-05
+- **Milestone**: Executed plan NEWS-ADMIN-002-BE-T02 (workflow: /execute-plan)
+- **Artifacts**:
+  - backend/app/application/use_cases/publish_news.py
+  - backend/app/presentation/api/news.py
+  - backend/tests/integration/test_news_publish.py
+- **Notes**: Implemented status transition logic and verified with integration tests. Fixed router path segment mismatch.

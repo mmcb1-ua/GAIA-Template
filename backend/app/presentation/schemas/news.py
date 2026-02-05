@@ -26,3 +26,6 @@ class NewsResponse(BaseModel):
 
     class Config:
         from_attributes = True
+
+class NewsStatusUpdate(BaseModel):
+    status: NewsStatus

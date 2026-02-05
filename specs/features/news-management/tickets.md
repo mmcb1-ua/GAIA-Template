@@ -60,7 +60,8 @@
    - **Dependencies**: NEWS-ADMIN-001-DB-T01.
    - **Deliverables**: Alembic Migration (if needed) or verification test.
 
-5. - [ ] **NEWS-ADMIN-002-BE-T02 — Publish Status Transition**
+5. - [x] (2026-02-05) **NEWS-ADMIN-002-BE-T02** — Publish Status Transition Endpoint
+    - **Status**: COMPLETED
    - **Type**: BE
    - **Description**: Implement `PATCH /api/v1/news_articles/{id}/status`.
      - Transition: DRAFT -> PUBLISHED.

@@ -1,10 +1,13 @@
 from fastapi import APIRouter, Depends, status
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.infrastructure.db.session import get_db
-from app.presentation.schemas.news import NewsCreate, NewsResponse
+from app.presentation.schemas.news import NewsCreate, NewsResponse, NewsStatusUpdate
 from app.application.use_cases.create_news import CreateNews
+from app.application.use_cases.publish_news import PublishNews
 from app.infrastructure.repositories.news_repository_impl import NewsRepositoryImpl
 from app.presentation.api.deps import get_current_admin
+from uuid import UUID
+from app.presentation.schemas.news import NewsStatus
 
 router = APIRouter()
 
@@ -30,3 +33,27 @@ async def create_news_draft(
     author_id = current_user.get("id")
     
     return await use_case.execute(data, author_id)
+
+@router.patch("/news_articles/{id}/status", response_model=NewsResponse)
+async def patch_news_status(
+    id: UUID,
+    data: NewsStatusUpdate,
+    db: AsyncSession = Depends(get_db),
+    current_user: dict = Depends(get_current_admin)
+):
+    # Traceability: [Feature: News Management] [Story: NEWS-ADMIN-002] [Ticket: NEWS-ADMIN-002-BE-T02]
+    
+    # Simple check for now: we only care if status is being set to PUBLISHED
+    # In a real app we might have a proper state machine in the use case.
+    
+    repo = NewsRepositoryImpl(db)
+    
+    if data.status == NewsStatus.PUBLISHED:
+        use_case = PublishNews(repo)
+        await use_case.execute(id)
+    else:
+        # For other status changes (e.g. DRAFT -> ARCHIVED), we'd need another use case
+        # For now, let's keep it scoped to publishing as per ticket.
+        pass
+        
+    return await repo.get_by_id(id)

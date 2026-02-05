@@ -18,10 +18,16 @@ import os
 # IF running tests FROM HOST, it's 'localhost:5455'.
 
 # To support both, we check env.
-TEST_DATABASE_URL = os.getenv("TEST_DATABASE_URL", "postgresql+asyncpg://postgres:postgres@localhost:5455/gaia_db")
+_db_url = os.getenv("DATABASE_URL", "postgresql://postgres:postgres@localhost:5455/gaia_db")
+if "db:5432" in _db_url:
+    # Inside Docker
+    TEST_DATABASE_URL = _db_url.replace("postgresql://", "postgresql+asyncpg://")
+else:
+    # From Host
+    TEST_DATABASE_URL = "postgresql+asyncpg://postgres:postgres@localhost:5455/gaia_db"
 
 # Dummy User Model for FK resolution
-from sqlalchemy import Column, String
+from sqlalchemy import Column, String, Boolean
 from sqlalchemy.dialects.postgresql import UUID
 import uuid
 
@@ -30,6 +36,15 @@ class User(Base):
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     email = Column(String, unique=True, nullable=False)
     role = Column(String, default="MEMBER")
+    is_admin = Column(Boolean, default=False)
+
+@pytest.fixture
+def admin_token_headers():
+    return {"Authorization": "Bearer fake-admin-token"}
+
+@pytest.fixture
+def user_token_headers():
+    return {"Authorization": "Bearer fake-user-token"}
 
 @pytest_asyncio.fixture()
 async def engine():
